@@ -3,48 +3,48 @@ import classes from "./ProductDetails.Module.css";
 import ProductData from "../../ProductData";
 
 const ProductDetails = (props) => {
+  const colorOptions = props.data.colorOptions.map((item, index) => {
+    const classArr = [classes.ProductImage];
+    if (index === props.currentPreviewImagePos) {
+      classArr.push(classes.SelectedProductImage);
+    }
+    return (
+      <img
+        key={index}
+        className={classArr.join(" ")}
+        src={item.imageUrl}
+        alt={item.styleName}
+        onClick={() => props.onColorSelectClick(index)}
+      />
+    );
+  });
+
+  const featureList = props.data.featureList.map((item, index) => {
+    const classArr = [classes.FeatureItem];
+    if (index === props.currentSelectedFeatureIndex) {
+      classArr.push(classes.SelectedFeatureItem);
+    }
+    return (
+      <button
+        onClick={() => props.onFeatureItemClick(index)}
+        key={index}
+        className={classArr.join(" ")}
+      >
+        {item}
+      </button>
+    );
+  });
+
   return (
     <div className={classes.ProductData}>
-      <h1 className={classes.ProductTitle}>{ProductData.title}</h1>
-      <p className={classes.ProductDescription}>{ProductData.description}</p>
+      <h1 className={classes.ProductTitle}>{props.data.title}</h1>
+      <p className={classes.ProductDescription}>{props.data.description}</p>
 
       <h3 className={classes.SectionHeading}>Select Color</h3>
-      <div>
-        <img
-          className={[classes.ProductImage, classes.SelectedProductImage].join(
-            " "
-          )}
-          src="https://imgur.com/iOeUBV7.png"
-          alt="Black Watch"
-        />
-        <img
-          className={classes.ProductImage}
-          src="https://imgur.com/PTgQlim.png"
-          alt="Red Watch"
-        />
-        <img
-          className={classes.ProductImage}
-          src="https://imgur.com/Mplj1YR.pngng"
-          alt="Blue Watch"
-        />
-        <img
-          className={classes.ProductImage}
-          src="https://imgur.com/xSIK4M8.png"
-          alt="Purple Watch"
-        />
-      </div>
+      <div>{colorOptions}</div>
 
       <h3 className={classes.SectionHeading}>Features</h3>
-      <div>
-        <button
-          className={[classes.FeatureItem, classes.SelectedFeatureItem].join(
-            " "
-          )}
-        >
-          Time
-        </button>
-        <button className={classes.FeatureItem}>Heart rate</button>
-      </div>
+      <div>{featureList}</div>
 
       <button className={classes.PrimaryButton}>Buy</button>
     </div>

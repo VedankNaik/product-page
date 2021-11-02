@@ -13,14 +13,17 @@ const ProductPreview = (props) => {
 
   return (
     <div className={classes.ProductPreview}>
-      <img src="https://imgur.com/iOeUBV7.png" alt="Product Perview" />
-      <div className={classes.TimeSection}>
-        <p>{`${hour} : ${minute}`}</p>
-      </div>
-      {/* <div className={classes.HeartBeatSection}>
-        <i class="fas fa-heartbeat"></i>
-        <p>78</p>
-      </div> */}
+      <img src={props.currentPreviewImage} alt="Product Perview" />
+      {props.currentSelectedFeatureIndex === 1 ? (
+        <div className={classes.HeartBeatSection}>
+          <i class="fas fa-heartbeat"></i>
+          <p>78</p>
+        </div>
+      ) : (
+        <div className={classes.TimeSection}>
+          <p>{`${hour} : ${minute}`}</p>
+        </div>
+      )}
     </div>
   );
 };
